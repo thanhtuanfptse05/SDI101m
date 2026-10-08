@@ -2159,12 +2159,10 @@ code, kbd, samp, pre {
           <div class="hero-top-row">
             <span class="hero-part-badge" id="heroPartBadge"><i class="fas fa-microchip"></i> Phần 1: Điện Học Cơ Bản</span>
             <div class="hero-quick-stats">
-              <span class="stat-pill" id="statQuizCount"><i class="fas fa-circle-question"></i> 50 Câu hỏi</span>
-              <span class="stat-pill" id="statFcCount"><i class="fas fa-layer-group"></i> 6 Flashcards</span>
             </div>
           </div>
           <h1 class="hero-title" id="heroTitle">Chương 1: Khái Quát Linh Kiện Bán Dẫn & Phép Đo</h1>
-          <p class="hero-subtitle" id="heroSubtitle">Tài liệu học tập, công thức toán lý, flashcard ghi nhớ và đề thi trắc nghiệm chương 1.</p>
+          <p class="hero-subtitle" id="heroSubtitle">Tài liệu học tập, công thức toán lý chương 1.</p>
           
           <!-- Master Tab Switcher Navigation -->
           <div class="tab-navigation-bar">
@@ -2175,16 +2173,6 @@ code, kbd, samp, pre {
             <button class="tab-btn" data-tab="formulas">
               <i class="fas fa-square-root-variable"></i>
               <span>Bảng Công Thức</span>
-            </button>
-            <button class="tab-btn" data-tab="flashcards">
-              <i class="fas fa-layer-group"></i>
-              <span>Flashcards 3D</span>
-              <span class="tab-badge" id="badgeTabFc">6</span>
-            </button>
-            <button class="tab-btn" data-tab="quiz">
-              <i class="fas fa-circle-question"></i>
-              <span>Luyện Thi Quiz</span>
-              <span class="tab-badge" id="badgeTabQuiz">50</span>
             </button>
           </div>
         </div>
@@ -2200,20 +2188,6 @@ code, kbd, samp, pre {
         <div class="tab-panel" id="tab-formulas">
           <div class="formulas-hub-container" id="tab-formulas-content">
             <!-- Dynamically Loaded Formula HTML -->
-          </div>
-        </div>
-
-        <!-- TAB 3: Flashcards 3D Panel -->
-        <div class="tab-panel" id="tab-flashcards">
-          <div id="tab-flashcards-content">
-            <!-- Dynamically Loaded Flashcards Engine -->
-          </div>
-        </div>
-
-        <!-- TAB 4: Master Quiz Panel -->
-        <div class="tab-panel" id="tab-quiz">
-          <div id="tab-quiz-content">
-            <!-- Dynamically Loaded Master Quiz Engine -->
           </div>
         </div>
 
@@ -2234,7 +2208,7 @@ code, kbd, samp, pre {
     <div class="search-modal">
       <div class="search-modal-header">
         <i class="fas fa-magnifying-glass" style="color: var(--primary); font-size: 1.15rem;"></i>
-        <input type="text" class="search-modal-input" id="searchModalInput" placeholder="Tìm kiếm trên tất cả 27 chương (Lý thuyết, công thức, câu hỏi)...">
+        <input type="text" class="search-modal-input" id="searchModalInput" placeholder="Tìm kiếm trên tất cả 27 chương (Lý thuyết, công thức)...">
         <button class="sidebar-toggle-btn" id="searchModalCloseBtn" style="border: none; background: transparent;">
           <i class="fas fa-xmark"></i>
         </button>
@@ -17415,13 +17389,6 @@ window.CHAPTERS_DATA = {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // Trigger specific tab logic
-    if (tabName === 'flashcards') {
-      renderCurrentFlashcard();
-    } else if (tabName === 'quiz') {
-      renderCurrentQuizQuestion();
-    }
-
     // Trigger Math Render for the newly visible tab
     triggerMathRender();
   }
@@ -17459,41 +17426,12 @@ window.CHAPTERS_DATA = {
 
     const heroSubtitle = document.getElementById('heroSubtitle');
     if (heroSubtitle) {
-      heroSubtitle.textContent = `Tài liệu học tập, công thức toán lý, flashcard ghi nhớ và đề thi trắc nghiệm chương ${chapter.num}.`;
+      heroSubtitle.textContent = `Tài liệu học tập, công thức toán lý chương ${chapter.num}.`;
     }
-
-    // Update Quick Stat Badges
-    const quizCount = chapter.normalizedQuestions ? chapter.normalizedQuestions.length : 0;
-    const fcCount = chapter.normalizedFlashcards ? chapter.normalizedFlashcards.length : 0;
-    
-    const statQuiz = document.getElementById('statQuizCount');
-    if (statQuiz) statQuiz.textContent = `${quizCount} Câu hỏi`;
-    
-    const statFc = document.getElementById('statFcCount');
-    if (statFc) statFc.textContent = `${fcCount} Flashcards`;
-
-    const badgeTabQuiz = document.getElementById('badgeTabQuiz');
-    if (badgeTabQuiz) badgeTabQuiz.textContent = quizCount;
-
-    const badgeTabFc = document.getElementById('badgeTabFc');
-    if (badgeTabFc) badgeTabFc.textContent = fcCount;
-
-    // Reset Flashcard & Quiz State for the new chapter
-    state.fcList = chapter.normalizedFlashcards || [];
-    state.fcIndex = 0;
-    state.fcFlipped = false;
-
-    state.quizList = chapter.normalizedQuestions || [];
-    state.quizIndex = 0;
-    state.quizAnswers = {};
-    state.quizScore = 0;
-    state.quizSubmitted = false;
 
     // Render Tab Contents
     renderTheoryTab(chapter);
     renderFormulasTab(chapter);
-    renderFlashcardsTab();
-    renderQuizTab();
 
     // Default to theory tab
     switchTab(state.currentTab || 'theory');
