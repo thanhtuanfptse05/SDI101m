@@ -927,46 +927,53 @@ code, kbd, samp, pre {
 
 /* Responsive Tables */
 .theory-container table,
-.formula-table table {
+.formula-table table,
+.tab-content table {
   width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
+  border-collapse: collapse;
   margin: 1.5rem 0;
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
   overflow: hidden;
-  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
   background: var(--bg-surface);
+  border: 1px solid var(--border-color);
 }
 
 .theory-container th,
-.formula-table th {
+.formula-table th,
+.tab-content th {
   background: var(--bg-surface-subtle);
   color: var(--text-primary);
   font-weight: 700;
   font-family: 'Outfit', sans-serif;
   text-align: left;
   padding: 1rem 1.25rem;
-  border-bottom: 1px solid var(--border-color);
+  border: 1px solid var(--border-color);
   font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
 }
 
 .theory-container td,
-.formula-table td {
+.formula-table td,
+.tab-content td {
   padding: 1rem 1.25rem;
-  border-bottom: 1px solid var(--border-color);
+  border: 1px solid var(--border-color);
   color: var(--text-secondary);
   font-size: 0.93rem;
   line-height: 1.6;
 }
 
-.theory-container tr:last-child td,
-.formula-table tr:last-child td {
-  border-bottom: none;
+.theory-container tr:nth-child(even) td,
+.formula-table tr:nth-child(even) td,
+.tab-content tr:nth-child(even) td {
+  background: var(--bg-surface-subtle);
 }
 
 .theory-container tr:hover td,
-.formula-table tr:hover td {
-  background: rgba(37, 99, 235, 0.02);
+.formula-table tr:hover td,
+.tab-content tr:hover td {
+  background: rgba(37, 99, 235, 0.04);
 }
 
 /* ==========================================================================
